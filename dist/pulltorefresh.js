@@ -36,6 +36,7 @@ var _defaults = {
   onInit: function () {},
   onRefresh: function () { return location.reload(); },
   resistanceFunction: function (t) { return Math.min(1, t / 2.5); },
+  handleCondition: function () { return true; }
 };
 
 var pullStartY = null;
@@ -116,6 +117,7 @@ function _setupEvents() {
     var distThreshold = _SETTINGS.distThreshold;
     var cssProp = _SETTINGS.cssProp;
     var classPrefix = _SETTINGS.classPrefix;
+    var handleCondition = _SETTINGS.handleCondition;
 
     if (!pullStartY) {
       if (!window.scrollY) {
@@ -123,6 +125,10 @@ function _setupEvents() {
       }
     } else {
       pullMoveY = e.touches[0].screenY;
+    }
+
+    if (!handleCondition(ptrElement)) {
+      return
     }
 
     if (!_enable || _state === 'refreshing') {

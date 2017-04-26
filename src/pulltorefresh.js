@@ -32,6 +32,7 @@ const _defaults = {
   onInit: () => {},
   onRefresh: () => location.reload(),
   resistanceFunction: t => Math.min(1, t / 2.5),
+  handleCondition: () => true
 };
 
 let pullStartY = null;
@@ -107,7 +108,7 @@ function _setupEvents() {
 
   function _onTouchMove(e) {
     const {
-      ptrElement, resistanceFunction, distMax, distThreshold, cssProp, classPrefix,
+      ptrElement, resistanceFunction, distMax, distThreshold, cssProp, classPrefix, handleCondition
     } = _SETTINGS;
 
     if (!pullStartY) {
@@ -116,6 +117,10 @@ function _setupEvents() {
       }
     } else {
       pullMoveY = e.touches[0].screenY;
+    }
+
+    if (!handleCondition(ptrElement)) {
+      return
     }
 
     if (!_enable || _state === 'refreshing') {
