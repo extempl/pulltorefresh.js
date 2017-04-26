@@ -94,6 +94,8 @@ function _setupEvents() {
 
   function _onTouchStart(e) {
     var triggerElement = _SETTINGS.triggerElement;
+    var ptrElement = _SETTINGS.ptrElement;
+    var handleCondition = _SETTINGS.handleCondition;
 
     if (!window.scrollY) {
       pullStartY = e.touches[0].screenY;
@@ -105,7 +107,7 @@ function _setupEvents() {
 
     clearTimeout(_timeout);
 
-    _enable = triggerElement.contains(e.target);
+    _enable = triggerElement.contains(e.target) && handleCondition(ptrElement);
     _state = 'pending';
     _update();
   }
@@ -127,12 +129,8 @@ function _setupEvents() {
       pullMoveY = e.touches[0].screenY;
     }
 
-    if (!handleCondition(ptrElement)) {
-      return
-    }
-
     if (!_enable || _state === 'refreshing') {
-      if (!window.scrollY && pullStartY < pullMoveY) {
+      if (!window.scrollY && pullStartY < pullMoveY && handleCondition(ptrElement)) {
         e.preventDefault();
       }
 
