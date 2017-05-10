@@ -108,7 +108,7 @@ function _setupEvents() {
 
   function _onTouchMove(e) {
     const {
-      ptrElement, resistanceFunction, distMax, distThreshold, cssProp, classPrefix, handleCondition
+      ptrElement, resistanceFunction, distMax, distThreshold, cssProp, classPrefix
     } = _SETTINGS;
 
     if (!pullStartY) {

@@ -119,7 +119,6 @@ function _setupEvents() {
     var distThreshold = _SETTINGS.distThreshold;
     var cssProp = _SETTINGS.cssProp;
     var classPrefix = _SETTINGS.classPrefix;
-    var handleCondition = _SETTINGS.handleCondition;
 
     if (!pullStartY) {
       if (!window.scrollY) {
@@ -130,10 +129,6 @@ function _setupEvents() {
     }
 
     if (!_enable || _state === 'refreshing') {
-      if (!window.scrollY && pullStartY < pullMoveY && handleCondition(ptrElement)) {
-        e.preventDefault();
-      }
-
       return;
     }
 
